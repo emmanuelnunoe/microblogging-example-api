@@ -1,4 +1,9 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+const DB_URI = process.env.DB_URI;
+const PORT = process.env.PORT;
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
