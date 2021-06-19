@@ -3,14 +3,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
-
-var app = express();
 var mongoose = require('mongoose');
+var app = express();
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
@@ -50,7 +50,7 @@ app.use(function (err, req, res, next) {
 mongoose.set('useCreateIndex', true);
 mongoose
   .connect(process.env.DB_URI, { useNewUrlParser: true })
-  .then(() => console.log('mymerndb conection succesful'))
+  .then(() => console.log('mymerndb connection succesful'))
   .catch((err) => console.error(err));
 
 module.exports = app;
