@@ -5,6 +5,8 @@ var router = express.Router();
 // Modelos
 var Post = require('../models/Posts');
 var User = require('../models/Users');
+//db connection
+
 var db = mongoose.connection;
 
 // GET del listado de post ordenados por fecha de publicacion
