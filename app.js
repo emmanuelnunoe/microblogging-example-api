@@ -16,7 +16,6 @@ var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var mongoose = require('mongoose');
 var app = express();
-app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
 // view engine setup
