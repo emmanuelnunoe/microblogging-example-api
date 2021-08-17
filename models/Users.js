@@ -1,9 +1,12 @@
 let mongoose = require('mongoose');
+
 let Schema = mongoose.Schema;
 let Post = require('../models/Posts.js');
+
 //para la encriptacion del password
 let bcrypt = require('bcryptjs');
 let SALT_WORK_FACTOR = 10;
+
 let UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
