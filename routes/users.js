@@ -82,15 +82,14 @@ router.delete('/:id', function (req, res, next) {
   });
 });
 
-//Comprueba si el usuario existe
+/* Check if user exists */
 router.post('/signin', function (req, res, next) {
   User.findOne({ username: req.body.username }, function (err, user) {
     if (err) res.status(500).send(err);
-    // Si el usuario existe...
+    // If user exists...
     if (user != null) {
       user.comparePassword(req.body.password, function (err, isMatch) {
-        if (err) return next(err);
-        //Si el password es correcto...
+        // If password is correct...
         if (isMatch)
           res
             .status(200)
