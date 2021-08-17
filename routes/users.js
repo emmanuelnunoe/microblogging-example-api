@@ -1,55 +1,23 @@
 var express = require('express');
-var router = express.Router();
 var mongoose = require('mongoose');
+
+var router = express.Router();
+
+// Models
 var User = require('../models/Users');
+
 var db = mongoose.connection;
 
-/* GET users listing. */
-// router.get('/', function (req, res) {
-//   res.json({
-//     users: [
-//       {
-//         id: 123,
-//         name: 'Eladio Guardiola',
-//         phones: {
-//           home: '800-123-4567',
-//           mobile: '877-123-1234',
-//         },
-//         email: ['jd@example.com', 'jd@example.org'],
-//         dateOfBirth: '1980-01-02t00:00:00.0002',
-//         registered: true,
-//       },
-//       {
-//         id: 456,
-//         name: 'Namesio Tornero',
-//         phones: {
-//           home: '800-123-3498',
-//           mobile: '877-438-1278',
-//         },
-//         email: ['pt@example.com', 'pt@example.org'],
-//         dateOfBirth: '1983-01-09t00:00:00.0002',
-//         registered: false,
-//       },
-//     ],
-//   });
-// });
+/* GET users listing ordered by creationdate. */
 
-// //GET  de un usuario por su id
-// router.get('/:id', function (req, res) {
-//   if (req.params.id == '123') {
-//     res.json({
-//       id: 123,
-//       name: 'Eladio Guardiola',
-//       phones: {
-//         home: '800-123-4567',
-//         mobile: '877-123-1234',
-//       },
-//       email: ['jd@example.com', 'jd@example.org'],
-//       dateOfBirth: '1980-01-02t00:00:00.000z',
-//       registered: true,
-//     });
-//   } else res.status(404).send('Lo siento, el item no se ha encontrado');
-// });
+router.get('/', function (req, res, next) {
+  User.find()
+    .sort('-creationdate')
+    .exec(function (err, users) {
+      if (err) err.status(500).send(err);
+      else res.status(200).json(users);
+    });
+});
 
 //POST de un nuevo usuario
 router.post('/', function (req, res) {
@@ -79,17 +47,6 @@ router.delete('/:id', function (req, res) {
     .send(
       'Usuario con id' + req.params.id + 'ha sido borrado satisfactoriamente'
     );
-});
-
-// GET del listado de los usuarios ordenados por fecha de creacion
-
-router.get('/', function (req, res, next) {
-  User.find()
-    .sort('-creationdate')
-    .exec(function (err, users) {
-      if (err) err.status(500).send(err);
-      else res.status(200).json(users);
-    });
 });
 
 // GET de un unico usuario por su Id
@@ -128,7 +85,7 @@ router.delete('/:id', function (req, res, next) {
 //Comprueba si el usuario existe
 router.post('/signin', function (req, res, next) {
   User.findOne({ username: req.body.username }, function (err, user) {
-    if (err) res.status(500).send('Error comprobando el usuario!');
+    if (err) res.status(500).send(err);
     // Si el usuario existe...
     if (user != null) {
       user.comparePassword(req.body.password, function (err, isMatch) {
@@ -138,9 +95,11 @@ router.post('/signin', function (req, res, next) {
           res
             .status(200)
             .send({ message: 'ok', role: user.role, id: user._id });
-        else res.status(200).send({ message: 'ko' });
+        else res.send({ message: 'Credenciales inválidas' });
       });
-    } else res.status(401).send({ message: 'ko' });
+    } else {
+      res.send({ message: 'Credenciales inválidas' });
+    }
   });
 });
 module.exports = router;

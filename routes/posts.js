@@ -1,10 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
+
 var router = express.Router();
 
 // Modelos
-var Post = require('../models/Posts');
+
 var User = require('../models/Users');
+
 //db connection
 
 var db = mongoose.connection;
