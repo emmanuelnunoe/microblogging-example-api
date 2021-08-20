@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "start:dev": "set DEBUG=* & set NODE_ENV=development & node server.js"
+    "start:dev": "set DEBUG=* & set NODE_ENV=development & node server.js",
+    "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,5 +19,8 @@
     "jade": "^0.29.0",
     "mongoose": "^5.12.14",
     "morgan": "~1.9.1"
+  },
+  "engines": {
+    "node": "v14.15.4"
   }
 }

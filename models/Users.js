@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
-var Post = require('../models/Post.js');
+let Schema = mongoose.Schema;
+let Post = require('../models/Posts.js');
 
-//For password encrypt
-var bcrypt = require('bcryptjs');
-var SALT_WORK_FACTOR = 10;
+//para la encriptacion del password
+let bcrypt = require('bcryptjs');
+let SALT_WORK_FACTOR = 10;
 
-var UserSchema = new Schema({
+let UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   fullname: String,
