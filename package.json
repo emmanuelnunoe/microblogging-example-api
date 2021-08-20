@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
     "start:dev": "set DEBUG=* & set NODE_ENV=development & node server.js",
+    "start": "node server.js",
     "build": "cd cliente && npm install && npm run build"
   },
   "dependencies": {
@@ -22,5 +22,6 @@
   },
   "engines": {
     "node": "v14.15.4"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

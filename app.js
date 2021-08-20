@@ -17,10 +17,10 @@ var postsRouter = require('./routes/posts');
 
 var mongoose = require('mongoose');
 var app = express();
-app.use('/posts', postsRouter);
-
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../cliente/public')));
+app.use(express.static(path.resolve(__dirname, 'cliente/build')));
+
+app.use('/posts', postsRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +30,8 @@ app.use(logger('dev'));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'cliente/build/index')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -54,6 +55,8 @@ app.use(function (err, req, res, next) {
   res.json({ message: err.message, error: err });
 });
 
+// All other GET requests not handled before will return our React app
+
 // Mongoose conection2
 mongoose.set('useCreateIndex', true);
 mongoose
@@ -61,4 +64,7 @@ mongoose
   .then(() => console.log('mymerndb connection succesful'))
   .catch((err) => console.error(err));
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'cliente/build/', 'index.html'));
+});
 module.exports = app;
