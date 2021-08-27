@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 // Modelos
-var Post = require('../models/Posts');
-var User = require('../models/Users');
+var Post = require('../models/Post');
+var User = require('../models/User');
 //db connection
 
 var db = mongoose.connection;

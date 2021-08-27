@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start:dev": "set DEBUG=* & set NODE_ENV=development & node server.js",
-    "start": "node server.js",
-    "build": "cd cliente && npm install && npm run build"
+    "start": "node ./bin/www",
+    "build": "cd cliente/microblogging-example-react && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -16,12 +16,12 @@
     "dotenv": "^9.0.2",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
+    "jade": "^0.29.0",
     "mongoose": "^5.12.14",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2"
   },
   "engines": {
     "node": "v14.15.4"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
